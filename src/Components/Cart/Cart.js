@@ -1,55 +1,12 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { Button, Card, CloseButton, ListGroup } from "react-bootstrap";
+import CartContext from "../Store/CartContext";
 
 const Cart = (props) => {
-  const cartElements = [
-    {
-      title: "Colors",
-
-      price: 100,
-
-      imageUrl:
-        "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
-
-      quantity: 2,
-    },
-
-    {
-      title: "Black and white Colors",
-
-      price: 50,
-
-      imageUrl:
-        "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
-
-      quantity: 3,
-    },
-
-    {
-      title: "Yellow and Black Colors",
-
-      price: 70,
-
-      imageUrl:
-        "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
-
-      quantity: 1,
-    },
-  ];
-
-  const [cartElementsState, setCartElementsState] = useState(cartElements);
+  const cartCtx = useContext(CartContext);
 
   const functionHideCart = () => {
     return props.onClose();
-  };
-
-  const removeItemFromCart = (cartElement) => {
-    const index = cartElementsState
-      .map((item) => item.title)
-      .indexOf(cartElement.title);
-    cartElementsState.splice(index, 1);
-    console.log(cartElementsState);
-    setCartElementsState(cartElementsState);
   };
 
   return (
@@ -68,9 +25,9 @@ const Cart = (props) => {
             CART
             <CloseButton onClick={functionHideCart} />
           </Card.Title>
-          {cartElementsState.map((cartElement) => {
+          {cartCtx.cartItems.map((cartElement) => {
             return (
-              <Card style={{ width: "180rem" }}>
+              <Card key={cartElement.title} style={{ width: "180rem" }}>
                 <ListGroup>
                   <ListGroup.Item>
                     <Card.Img
@@ -79,12 +36,7 @@ const Cart = (props) => {
                       src={cartElement.imageUrl}
                     />
                     {`${cartElement.title}   ${cartElement.price}   ${cartElement.quantity}`}
-                    <Button
-                      variant="danger"
-                      onClick={() => removeItemFromCart(cartElement)}
-                    >
-                      REMOVE
-                    </Button>
+                    <Button variant="danger">REMOVE</Button>
                   </ListGroup.Item>
                 </ListGroup>
               </Card>

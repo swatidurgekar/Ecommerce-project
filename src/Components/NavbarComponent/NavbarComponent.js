@@ -1,9 +1,15 @@
 import { Navbar, Container, Button } from "react-bootstrap";
 import Cart from "../Cart/Cart";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import CartContext from "../Store/CartContext";
 
 const NavbarComponent = () => {
   const [showCart, setShowCart] = useState(false);
+  const CartCtx = useContext(CartContext);
+  let number = 0;
+  CartCtx.cartItems.forEach((item) => {
+    number += item.quantity;
+  });
 
   const functionShowCart = () => {
     setShowCart(true);
@@ -18,7 +24,7 @@ const NavbarComponent = () => {
       <Navbar fixed="top" bg="dark" expand="sm" variant="dark">
         <Container>
           <Navbar.Brand href="/">STORE</Navbar.Brand>
-          <Button onClick={functionShowCart}>Cart</Button>
+          <Button onClick={functionShowCart}>Cart : {number}</Button>
         </Container>
       </Navbar>
       {showCart && <Cart onClose={functionHideCart} />}

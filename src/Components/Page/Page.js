@@ -1,11 +1,20 @@
 import { Button, Card } from "react-bootstrap";
+import CartContext from "../Store/CartContext";
+import { useContext } from "react";
 
 const Page = () => {
+  const CartCtx = useContext(CartContext);
+
+  const addToCart = (product) => {
+    CartCtx.addToCart(product);
+  };
+
   const productsArr = [
     {
       title: "Colors",
 
       price: 100,
+      quantity: 1,
 
       imageUrl:
         "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
@@ -15,6 +24,7 @@ const Page = () => {
       title: "Black and white Colors",
 
       price: 50,
+      quantity: 1,
 
       imageUrl:
         "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
@@ -24,6 +34,7 @@ const Page = () => {
       title: "Yellow and Black Colors",
 
       price: 70,
+      quantity: 1,
 
       imageUrl:
         "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
@@ -33,6 +44,7 @@ const Page = () => {
       title: "Blue Color",
 
       price: 100,
+      quantity: 1,
 
       imageUrl:
         "https://prasadyash2411.github.io/ecom-website/img/Album%204.png",
@@ -52,7 +64,7 @@ const Page = () => {
         <Card.Body>
           {productsArr.map((product) => {
             return (
-              <Card.Body style={{ width: "20rem" }}>
+              <Card.Body key={product.title}>
                 <Card.Title>{product.title}</Card.Title>
                 <Card.Img
                   variant="top"
@@ -60,7 +72,7 @@ const Page = () => {
                   style={{ width: "18rem", display: "flex-box" }}
                 />
                 <Card.Text>${product.price}</Card.Text>
-                <Button>ADD TO CART</Button>
+                <Button onClick={() => addToCart(product)}>ADD TO CART</Button>
                 <br />
               </Card.Body>
             );
