@@ -41,7 +41,7 @@ const Page = () => {
 
   return (
     <>
-      <Card style={{ width: "100rem" }}>
+      <Card style={{ paddingTop: "2rem", width: "100rem" }}>
         <Card.Body>
           <Card.Title style={{ fontSize: "5rem", alignContent: "center" }}>
             The Generics
@@ -67,6 +67,7 @@ const Page = () => {
           })}
         </Card.Body>
       </Card>
+      <Button variant="secondary">See the cart</Button>
     </>
   );
 };
