@@ -1,7 +1,6 @@
 import { Button, Card } from "react-bootstrap";
 import CartContext from "../Store/CartContext";
 import { useContext } from "react";
-import NavbarComponent from "../NavbarComponent/NavbarComponent";
 
 const Page = () => {
   const CartCtx = useContext(CartContext);
@@ -54,7 +53,6 @@ const Page = () => {
 
   return (
     <>
-      <NavbarComponent />
       <Card style={{ paddingTop: "2rem", width: "100rem" }}>
         <Card.Body>
           <Card.Title style={{ fontSize: "5rem", alignContent: "center" }}>

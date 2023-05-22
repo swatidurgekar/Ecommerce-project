@@ -1,17 +1,8 @@
-import NavbarComponent from "../NavbarComponent/NavbarComponent";
-import { Navbar, Container, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Card } from "react-bootstrap";
 
 const About = () => {
   return (
     <>
-      <Navbar fixed="top" bg="dark" expand="sm" variant="dark">
-        <Container>
-          <Link to="/">HOME</Link>
-          <Link to="/">STORE</Link>
-          <Link to="/about">ABOUT</Link>
-        </Container>
-      </Navbar>
       <Card
         style={{
           paddingTop: "2rem",
