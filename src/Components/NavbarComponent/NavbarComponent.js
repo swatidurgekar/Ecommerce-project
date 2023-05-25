@@ -3,7 +3,7 @@ import Cart from "../Cart/Cart";
 import { useContext, useState } from "react";
 import CartContext from "../Store/CartContext";
 import { NavLink } from "react-router-dom";
-import { Outlet } from "react-router-dom";
+// import { Outlet } from "react-router-dom";
 import "./NavbarComponent.css";
 
 const NavbarComponent = () => {
@@ -26,7 +26,7 @@ const NavbarComponent = () => {
     <>
       <Navbar fixed="top" bg="dark" expand="sm" variant="dark">
         <Container>
-          <NavLink activeclassname={"active"} to="/" end>
+          <NavLink activeclassname={"active"} to="/home" end>
             HOME
           </NavLink>
           <NavLink activeclassname={"active"} to="/store">
@@ -44,7 +44,7 @@ const NavbarComponent = () => {
       </Navbar>
       {showCart && <Cart onClose={functionHideCart} />}
 
-      <Outlet />
+      {/* <Outlet /> */}
     </>
   );
 };

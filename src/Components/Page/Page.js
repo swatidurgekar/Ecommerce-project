@@ -1,6 +1,7 @@
 import { Button, Card } from "react-bootstrap";
 import CartContext from "../Store/CartContext";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 
 const Page = () => {
   const CartCtx = useContext(CartContext);
@@ -66,11 +67,13 @@ const Page = () => {
             return (
               <Card.Body key={product.title}>
                 <Card.Title>{product.title}</Card.Title>
-                <Card.Img
-                  variant="top"
-                  src={product.imageUrl}
-                  style={{ width: "18rem", display: "flex-box" }}
-                />
+                <Link to={`/store/${product.title}`}>
+                  <Card.Img
+                    variant="top"
+                    src={product.imageUrl}
+                    style={{ width: "18rem", display: "flex-box" }}
+                  />
+                </Link>
                 <Card.Text>${product.price}</Card.Text>
                 <Button onClick={() => addToCart(product)}>ADD TO CART</Button>
                 <br />

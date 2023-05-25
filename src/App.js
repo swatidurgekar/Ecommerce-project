@@ -1,40 +1,39 @@
 import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Page from "./Components/Page/Page";
 import About from "./Components/Page/About";
-import CartContextProvider from "./Components/Store/CartContextProvider";
 import NavbarComponent from "./Components/NavbarComponent/NavbarComponent";
 import Home from "./Components/Page/Home";
 import Contact from "./Components/Page/Contact";
+import { Route, Redirect } from "react-router-dom";
+import { Switch } from "react-router-dom";
+import Products from "./Components/Page/Products";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <NavbarComponent />,
-    children: [
-      { path: "/store", element: <Page /> },
-      {
-        path: "/about",
-        element: <About />,
-      },
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/contact",
-        element: <Contact />,
-      },
-    ],
-  },
-]);
-
-function App() {
+const App = () => {
   return (
-    <CartContextProvider>
-      <RouterProvider router={router} />
-    </CartContextProvider>
+    <div>
+      <NavbarComponent />
+      <Switch>
+        <Route path="/" exact>
+          <Redirect to="/Home" />
+        </Route>
+        <Route path="/home">
+          <Home />
+        </Route>
+        <Route path="/store" exact>
+          <Page />
+        </Route>
+        <Route path="/about">
+          <About />
+        </Route>
+        <Route path="/contact">
+          <Contact />
+        </Route>
+        <Route path="/store/:productId">
+          <Products />
+        </Route>
+      </Switch>
+    </div>
   );
-}
+};
 
 export default App;
