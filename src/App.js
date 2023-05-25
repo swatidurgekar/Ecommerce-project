@@ -5,20 +5,25 @@ import About from "./Components/Page/About";
 import CartContextProvider from "./Components/Store/CartContextProvider";
 import NavbarComponent from "./Components/NavbarComponent/NavbarComponent";
 import Home from "./Components/Page/Home";
+import Contact from "./Components/Page/Contact";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <NavbarComponent />,
     children: [
-      { path: "/", element: <Page /> },
+      { path: "/store", element: <Page /> },
       {
         path: "/about",
         element: <About />,
       },
       {
-        path: "/home",
+        path: "/",
         element: <Home />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
       },
     ],
   },

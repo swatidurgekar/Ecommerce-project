@@ -26,24 +26,17 @@ const NavbarComponent = () => {
     <>
       <Navbar fixed="top" bg="dark" expand="sm" variant="dark">
         <Container>
-          <NavLink
-            className={({ isActive }) => (isActive ? "active" : undefined)}
-            to="/home"
-          >
+          <NavLink activeclassname={"active"} to="/" end>
             HOME
           </NavLink>
-          <NavLink
-            className={({ isActive }) => (isActive ? "active" : undefined)}
-            to="/"
-            end
-          >
+          <NavLink activeclassname={"active"} to="/store">
             STORE
           </NavLink>
-          <NavLink
-            className={({ isActive }) => (isActive ? "active" : undefined)}
-            to="/about"
-          >
+          <NavLink activeclassname={"active"} to="/about">
             ABOUT
+          </NavLink>
+          <NavLink activeclassname={"active"} to="/contact">
+            CONTACT US
           </NavLink>
 
           <Button onClick={functionShowCart}>Cart : {number}</Button>
