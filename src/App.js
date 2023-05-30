@@ -8,8 +8,12 @@ import { Route, Redirect } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import Products from "./Components/Page/Products";
 import Login from "./Components/Page/Login";
+import AuthContext from "./Components/Store/AuthContext";
+import { useContext } from "react";
 
 const App = () => {
+  const authCtx = useContext(AuthContext);
+
   return (
     <div>
       <NavbarComponent />
@@ -21,7 +25,8 @@ const App = () => {
           <Home />
         </Route>
         <Route path="/store" exact>
-          <Page />
+          {authCtx.isLoggedIn && <Page />}
+          {!authCtx.isLoggedIn && <Redirect to="/login" />}
         </Route>
         <Route path="/about">
           <About />
