@@ -7,6 +7,7 @@ import Contact from "./Components/Page/Contact";
 import { Route, Redirect } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import Products from "./Components/Page/Products";
+import Login from "./Components/Page/Login";
 
 const App = () => {
   return (
@@ -27,6 +28,9 @@ const App = () => {
         </Route>
         <Route path="/contact">
           <Contact />
+        </Route>
+        <Route path="/login">
+          <Login />
         </Route>
         <Route path="/store/:productId">
           <Products />

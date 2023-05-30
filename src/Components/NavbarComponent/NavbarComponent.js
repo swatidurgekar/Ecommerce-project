@@ -26,7 +26,7 @@ const NavbarComponent = () => {
     <>
       <Navbar fixed="top" bg="dark" expand="sm" variant="dark">
         <Container>
-          <NavLink activeclassname={"active"} to="/home" end>
+          <NavLink activeclassname={"active"} to="/home">
             HOME
           </NavLink>
           <NavLink activeclassname={"active"} to="/store">
@@ -37,6 +37,9 @@ const NavbarComponent = () => {
           </NavLink>
           <NavLink activeclassname={"active"} to="/contact">
             CONTACT US
+          </NavLink>
+          <NavLink activeclassname={"active"} to="/login">
+            LOGIN
           </NavLink>
 
           <Button onClick={functionShowCart}>Cart : {number}</Button>
