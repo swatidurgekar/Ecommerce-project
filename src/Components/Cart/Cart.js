@@ -1,9 +1,26 @@
 import { useContext } from "react";
 import { Button, Card, CloseButton, ListGroup } from "react-bootstrap";
 import CartContext from "../Store/CartContext";
+// import axios from "axios";
+// import AuthContext from "../Store/AuthContext";
 
 const Cart = (props) => {
   const cartCtx = useContext(CartContext);
+  // const authCtx = useContext(AuthContext);
+  // const email = authCtx.email;
+  // const newEmail = email.replace(/[@.]/g, "");
+  // let products;
+
+  // async function getProducts() {
+  //   const res = await axios.get(
+  //     `https://crudcrud.com/api/9fe66ba58d4c4e36ab77ef200a66865f/${newEmail}`
+  //   );
+
+  //   products = res.data[res.data.length - 1].cart;
+  //   // console.log(products);
+  // }
+  // getProducts();
+  // console.log(products);
 
   const functionHideCart = () => {
     return props.onClose();
@@ -14,9 +31,9 @@ const Cart = (props) => {
       <Card
         style={{
           paddingTop: "5rem",
-          position: "fixed",
+          position: "absolute",
           zIndex: "100",
-          width: "40rem",
+          width: "30rem",
           right: 0,
         }}
       >

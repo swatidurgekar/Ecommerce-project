@@ -3,7 +3,6 @@ import Cart from "../Cart/Cart";
 import { useContext, useState } from "react";
 import CartContext from "../Store/CartContext";
 import { NavLink } from "react-router-dom";
-// import { Outlet } from "react-router-dom";
 import "./NavbarComponent.css";
 
 const NavbarComponent = () => {
@@ -46,8 +45,6 @@ const NavbarComponent = () => {
         </Container>
       </Navbar>
       {showCart && <Cart onClose={functionHideCart} />}
-
-      {/* <Outlet /> */}
     </>
   );
 };

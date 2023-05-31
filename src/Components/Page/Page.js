@@ -2,12 +2,46 @@ import { Button, Card } from "react-bootstrap";
 import CartContext from "../Store/CartContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import AuthContext from "../Store/AuthContext";
 
 const Page = () => {
   const CartCtx = useContext(CartContext);
+  const authCtx = useContext(AuthContext);
 
-  const addToCart = (product) => {
+  const addToCart = async (product) => {
+    let id = "";
+    const email = authCtx.email;
+    const newEmail = email.replace(/[@.]/g, "");
     CartCtx.addToCart(product);
+    const res = await axios.get(
+      `https://crudcrud.com/api/aaa8e2caf6f540778ebb8657cba7421b/${newEmail}`
+    );
+    res.data.map((item) => {
+      if (item.title === product.title) {
+        id = item._id;
+        axios.put(
+          `https://crudcrud.com/api/aaa8e2caf6f540778ebb8657cba7421b/${newEmail}/${item._id}`,
+          {
+            title: item.title,
+            price: item.price,
+            quantity: item.quantity + 1,
+            imageUrl: item.imageUrl,
+          }
+        );
+      }
+    });
+    if (id === "") {
+      await axios.post(
+        `https://crudcrud.com/api/aaa8e2caf6f540778ebb8657cba7421b/${newEmail}`,
+        {
+          title: product.title,
+          price: product.price,
+          quantity: product.quantity,
+          imageUrl: product.imageUrl,
+        }
+      );
+    }
   };
 
   const productsArr = [

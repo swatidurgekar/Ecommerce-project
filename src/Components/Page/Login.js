@@ -26,8 +26,10 @@ const Login = () => {
       }
     ).then((res) => {
       if (res.ok) {
-        res.json().then((data) => authCtx.loginHandler(data.idToken));
-        history.replace("/store");
+        res.json().then((data) => {
+          authCtx.loginHandler(data.email, data.idToken);
+          history.replace("/store");
+        });
       } else {
         res.json().then((data) => alert(data.error.message));
       }

@@ -7,7 +7,7 @@ const Contact = () => {
   const phone = useRef();
 
   const fetchFunc = async (contact) => {
-    const resolve = await fetch(
+    await fetch(
       "https://ecommerce-16809-default-rtdb.firebaseio.com/user.json",
       {
         method: "POST",
