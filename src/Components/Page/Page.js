@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import AuthContext from "../Store/AuthContext";
+import classes from "./Page.module.css";
 
 const Page = () => {
   const url = "https://ecommerce-16809-default-rtdb.firebaseio.com";
@@ -107,60 +108,41 @@ const Page = () => {
 
   return (
     <>
-      <Card
-        style={{
-          paddingTop: "25rem",
-          overflow: "hidden",
-        }}
-      >
-        <Card.Body>
-          <Card.Title
-            style={{
-              fontSize: "5rem",
-              left: "25%",
-              position: "relative",
-            }}
-          >
-            The Generics
-          </Card.Title>
-        </Card.Body>
-      </Card>
-      <Card
-        style={{
-          width: "800px",
-          margin: "0 auto",
-        }}
-      >
-        <Card.Body>
-          {productsArr.map((product) => {
-            return (
-              <Card.Body
-                style={{ float: "left", padding: "10px 70px" }}
-                key={product.title}
-              >
-                <Card.Title style={{ paddingTop: "15px" }}>
-                  {product.title}
-                </Card.Title>
-                <Link to={`/store/${product.title}`}>
-                  <Card.Img
-                    src={product.imageUrl}
-                    style={{ width: "15rem", paddingTop: "10px" }}
-                  />
-                </Link>
-                <Card.Text>${product.price}</Card.Text>
-                <Button onClick={() => addToCart(product)}>ADD TO CART</Button>
-                <br />
-              </Card.Body>
-            );
-          })}
-          <Button
-            style={{ margin: "0", position: "relative", left: "40%" }}
-            variant="secondary"
-          >
-            See the cart
-          </Button>
-        </Card.Body>
-      </Card>
+      <div className={classes.page}>
+        <div>
+          <h1 className={classes.header}>The Generics</h1>
+        </div>
+        <div className={classes.content}>
+          <div>
+            {productsArr.map((product) => {
+              return (
+                <div className={classes.body} key={product.title}>
+                  <Card.Title style={{ paddingTop: "15px" }}>
+                    {product.title}
+                  </Card.Title>
+                  <Link to={`/store/${product.title}`}>
+                    <Card.Img
+                      src={product.imageUrl}
+                      style={{ width: "15rem", paddingTop: "10px" }}
+                    />
+                  </Link>
+                  <Card.Text>${product.price}</Card.Text>
+                  <Button onClick={() => addToCart(product)}>
+                    ADD TO CART
+                  </Button>
+                  <br />
+                </div>
+              );
+            })}
+            <Button
+              style={{ margin: "0", position: "relative", left: "40%" }}
+              variant="secondary"
+            >
+              See the cart
+            </Button>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

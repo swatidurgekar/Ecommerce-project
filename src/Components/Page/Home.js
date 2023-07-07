@@ -1,25 +1,14 @@
-import { Button, Card } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { PlayCircle } from "react-bootstrap-icons";
+import "./Home.css";
 
 const Home = () => {
   return (
     <>
-      <Card
-        style={{
-          padding: "3rem",
-          backgroundColor: "grey",
-        }}
-      >
-        <Card.Body>
-          <Card.Title
-            style={{
-              fontSize: "5rem",
-              textAlign: "center",
-            }}
-          >
-            THE GENERICS
-          </Card.Title>
+      <div className="home">
+        <div>
+          <h1 className="home-header">THE GENERICS</h1>
           <br />
           <div>
             <Button
@@ -35,12 +24,9 @@ const Home = () => {
             size={96}
             color="lightblue"
           />
-        </Card.Body>
-      </Card>
-      <div
-        className="card"
-        style={{ display: "flex", margin: "auto", width: "26rem" }}
-      >
+        </div>
+      </div>
+      <div className="home-tickets">
         <ul className="list-group list-group-horizontal">
           <li className="list-group-item">JUL16</li>
           <li className="list-group-item">DETROIT, MI</li>

@@ -1,0 +1,13 @@
+.home {
+  background-color: gray;
+  padding-top: 50px;
+}
+
+.home-header {
+  text-align: center;
+}
+
+.home-tickets {
+  margin: auto;
+  width: 26rem;
+}

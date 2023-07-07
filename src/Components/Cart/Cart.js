@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Button, Card, CloseButton } from "react-bootstrap";
 import CartContext from "../Store/CartContext";
 import axios from "axios";
+import classes from "./Cart.module.css";
 
 const Cart = (props) => {
   const url = "https://ecommerce-16809-default-rtdb.firebaseio.com";
@@ -40,78 +41,53 @@ const Cart = (props) => {
 
   return (
     <>
-      <Card
-        style={{
-          paddingTop: "25rem",
-          position: "absolute",
-          zIndex: "100",
-          width: "30%",
-          right: 0,
-        }}
-      >
-        <Card.Body>
-          <Card.Title>
-            CART
+      <div>
+        <div className={classes.cart}>
+          <div>
+            <h2 className={classes.header}>CART</h2>
             <CloseButton onClick={functionHideCart} />
-          </Card.Title>
-          <ul
-            style={{ width: "100%" }}
-            className="list-group list-group-horizontal"
-          >
-            <li style={{ width: "28%" }} className="list-group-item">
-              ITEM
-            </li>
-            <li style={{ width: "20%" }} className="list-group-item">
-              TITLE
-            </li>
-            <li style={{ width: "18%" }} className="list-group-item">
-              PRICE
-            </li>
-            <li style={{ width: "15%" }} className="list-group-item">
-              QTY
-            </li>
-          </ul>
-          {cartCtx.cartItems.map((cartElement) => {
-            return (
-              <div
-                key={cartElement.title}
-                className="card"
-                style={{ display: "flex", margin: "auto", width: "100%" }}
-              >
-                <ul className="list-group list-group-horizontal">
-                  <li className="list-group-item">
-                    <img
-                      alt={cartElement.title}
-                      src={cartElement.imageUrl}
-                      style={{ width: "5rem", paddingTop: 0 }}
-                    />
-                  </li>
-                  <li style={{ width: "30%" }} className="list-group-item">
-                    {cartElement.title}
-                  </li>
-                  <li style={{ width: "25%" }} className="list-group-item">
-                    {cartElement.price}
-                  </li>
-                  <li style={{ width: "25%" }} className="list-group-item">
-                    {cartElement.quantity}
-                  </li>
-                  <Button
-                    style={{
-                      height: "10%",
-                      margin: "auto",
-                      width: "22%",
-                    }}
-                    className="btn-danger"
-                    onClick={() => remove(cartElement)}
-                  >
-                    REMOVE
-                  </Button>
-                </ul>
-              </div>
-            );
-          })}
-        </Card.Body>
-      </Card>
+            {cartCtx.cartItems.map((cartElement) => {
+              return (
+                <div
+                  key={cartElement.title}
+                  className="card"
+                  style={{ display: "flex", margin: "auto", width: "100%" }}
+                >
+                  <ul className="list-group list-group-horizontal">
+                    <li className="list-group-item">
+                      <img
+                        alt={cartElement.title}
+                        src={cartElement.imageUrl}
+                        style={{ width: "5rem", paddingTop: 0 }}
+                      />
+                    </li>
+                    <li style={{ width: "30%" }} className="list-group-item">
+                      {cartElement.title}
+                    </li>
+                    <li style={{ width: "25%" }} className="list-group-item">
+                      {cartElement.price}
+                    </li>
+                    <li style={{ width: "25%" }} className="list-group-item">
+                      {cartElement.quantity}
+                    </li>
+                    <Button
+                      style={{
+                        height: "10%",
+                        margin: "auto",
+                        width: "22%",
+                      }}
+                      className="btn-danger"
+                      onClick={() => remove(cartElement)}
+                    >
+                      REMOVE
+                    </Button>
+                  </ul>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
     </>
   );
 };

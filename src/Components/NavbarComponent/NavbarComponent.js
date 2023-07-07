@@ -23,6 +23,7 @@ const NavbarComponent = () => {
   const logoutHandler = () => {
     authCtx.logoutHandler();
     history.replace("/login");
+    setShowCart(false);
   };
 
   const functionShowCart = () => {

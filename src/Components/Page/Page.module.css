@@ -1,0 +1,18 @@
+.page {
+  padding-top: 50px;
+  overflow: hidden;
+}
+
+.header {
+  margin-left: 40%;
+}
+
+.content {
+  width: 800px;
+  margin: 0 auto;
+}
+
+.body {
+  float: left;
+  padding: 10px 70px;
+}
