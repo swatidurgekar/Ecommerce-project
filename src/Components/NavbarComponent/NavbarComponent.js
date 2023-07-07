@@ -1,17 +1,29 @@
 import { Navbar, Container, Button } from "react-bootstrap";
-import Cart from "../Cart/Cart";
 import { useContext, useState } from "react";
 import CartContext from "../Store/CartContext";
+import AuthContext from "../Store/AuthContext";
+import { Redirect, useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import "./NavbarComponent.css";
+import { lazy, Suspense } from "react";
 
 const NavbarComponent = () => {
+  const Cart = lazy(() => import("../Cart/Cart"));
+
+  const history = useHistory();
   const [showCart, setShowCart] = useState(false);
   const CartCtx = useContext(CartContext);
+  const authCtx = useContext(AuthContext);
   let number = 0;
+
   CartCtx.cartItems.forEach((item) => {
     number += item.quantity;
   });
+
+  const logoutHandler = () => {
+    authCtx.logoutHandler();
+    history.replace("/login");
+  };
 
   const functionShowCart = () => {
     setShowCart(true);
@@ -29,7 +41,7 @@ const NavbarComponent = () => {
             HOME
           </NavLink>
           <NavLink activeclassname={"active"} to="/store">
-            STORE
+            {authCtx.isLoggedIn ? " STORE" : <Redirect to="/login" />}
           </NavLink>
           <NavLink activeclassname={"active"} to="/about">
             ABOUT
@@ -37,14 +49,25 @@ const NavbarComponent = () => {
           <NavLink activeclassname={"active"} to="/contact">
             CONTACT US
           </NavLink>
-          <NavLink activeclassname={"active"} to="/login">
-            LOGIN
-          </NavLink>
+          {!authCtx.isLoggedIn && (
+            <NavLink activeclassname={"active"} to="/login">
+              LOGIN
+            </NavLink>
+          )}
 
-          <Button onClick={functionShowCart}>Cart : {number}</Button>
+          {authCtx.isLoggedIn && (
+            <Button onClick={functionShowCart}>Cart : {number}</Button>
+          )}
+          {authCtx.isLoggedIn && (
+            <Button onClick={logoutHandler}>LOGOUT</Button>
+          )}
         </Container>
       </Navbar>
-      {showCart && <Cart onClose={functionHideCart} />}
+      {showCart && (
+        <Suspense fallback={<p>Loading...</p>}>
+          <Cart onClose={functionHideCart} />
+        </Suspense>
+      )}
     </>
   );
 };

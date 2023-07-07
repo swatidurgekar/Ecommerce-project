@@ -23,7 +23,7 @@ const Home = () => {
           <br />
           <div>
             <Button
-              style={{ marginLeft: "37rem", display: "flex" }}
+              style={{ margin: "auto", display: "flex" }}
               className="btn-secondary "
             >
               Get our Latest Album
@@ -31,7 +31,7 @@ const Home = () => {
           </div>
           <br />
           <PlayCircle
-            style={{ marginLeft: "40rem" }}
+            style={{ margin: "auto", display: "flex" }}
             size={96}
             color="lightblue"
           />
@@ -39,7 +39,7 @@ const Home = () => {
       </Card>
       <div
         className="card"
-        style={{ display: "flex", marginLeft: "30rem", width: "26rem" }}
+        style={{ display: "flex", margin: "auto", width: "26rem" }}
       >
         <ul className="list-group list-group-horizontal">
           <li className="list-group-item">JUL16</li>

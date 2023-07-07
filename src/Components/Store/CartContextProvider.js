@@ -4,20 +4,29 @@ import axios from "axios";
 import AuthContext from "./AuthContext";
 
 const CartContextProvider = (props) => {
+  const url = "https://ecommerce-16809-default-rtdb.firebaseio.com/";
   let products;
+  let newEmail;
   const authCtx = useContext(AuthContext);
-  const email = authCtx.email;
-  const newEmail = email.replace(/[@.]/g, "");
-  const [cartItems, setCartItems] = useState([]);
+  if (authCtx.email) {
+    const email = authCtx.email;
+    newEmail = email.replace(/[@.]/g, "");
+  }
 
+  const [cartItems, setCartItems] = useState([]);
+  console.log(cartItems);
   useEffect(() => {
     async function fetchData() {
       try {
-        let res = await axios.get(
-          `https://crudcrud.com/api/aaa8e2caf6f540778ebb8657cba7421b/${newEmail}`
-        );
-        // console.log(res.data);
-        setCartItems(res.data);
+        let res = await fetch(`${url}/${newEmail}.json`);
+        if (res.ok) {
+          const response = await res.json();
+          if (response) {
+            setCartItems(Object.values(response));
+          } else {
+            setCartItems([]);
+          }
+        }
       } catch (error) {
         console.log(error.message);
       }
@@ -25,26 +34,45 @@ const CartContextProvider = (props) => {
     {
       authCtx.isLoggedIn && fetchData();
     }
-  }, []);
+  }, [newEmail]);
 
   const addToCart = (product) => {
-    const index = cartItems.map((item) => item.title).indexOf(product.title);
-    if (index >= 0) {
-      const arr = cartItems.filter((item) => {
-        return item.title !== product.title;
-      });
-      arr.push({ ...product, quantity: cartItems[index].quantity + 1 });
-      setCartItems(arr);
+    if (cartItems.length !== 0) {
+      const index = cartItems.map((item) => item.title).indexOf(product.title);
+      if (index >= 0) {
+        const newCartItems = [...cartItems];
+        newCartItems[index].quantity = newCartItems[index].quantity + 1;
+        setCartItems(newCartItems);
+      } else {
+        setCartItems((prevState) => {
+          return [...prevState, product];
+        });
+      }
     } else {
       setCartItems((prevState) => {
         return [...prevState, product];
       });
+    }
+
+    console.log(cartItems);
+  };
+
+  const removeFromCart = (product) => {
+    const index = cartItems.map((item) => item.title).indexOf(product.title);
+    if (cartItems[index].quantity > 1) {
+      const newCartItems = [...cartItems];
+      newCartItems[index].quantity = newCartItems[index].quantity - 1;
+      setCartItems(newCartItems);
+    } else {
+      const arr = cartItems.filter((item) => item.title !== product.title);
+      setCartItems(arr);
     }
   };
 
   const cartContext = {
     cartItems: cartItems,
     addToCart: addToCart,
+    removeFromCart: removeFromCart,
   };
 
   return (

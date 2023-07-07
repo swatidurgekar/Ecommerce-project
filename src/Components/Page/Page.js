@@ -6,6 +6,7 @@ import axios from "axios";
 import AuthContext from "../Store/AuthContext";
 
 const Page = () => {
+  const url = "https://ecommerce-16809-default-rtdb.firebaseio.com";
   const CartCtx = useContext(CartContext);
   const authCtx = useContext(AuthContext);
 
@@ -14,33 +15,51 @@ const Page = () => {
     const email = authCtx.email;
     const newEmail = email.replace(/[@.]/g, "");
     CartCtx.addToCart(product);
-    const res = await axios.get(
-      `https://crudcrud.com/api/aaa8e2caf6f540778ebb8657cba7421b/${newEmail}`
-    );
-    res.data.map((item) => {
-      if (item.title === product.title) {
-        id = item._id;
-        axios.put(
-          `https://crudcrud.com/api/aaa8e2caf6f540778ebb8657cba7421b/${newEmail}/${item._id}`,
-          {
-            title: item.title,
-            price: item.price,
-            quantity: item.quantity + 1,
-            imageUrl: item.imageUrl,
-          }
-        );
-      }
-    });
-    if (id === "") {
-      await axios.post(
-        `https://crudcrud.com/api/aaa8e2caf6f540778ebb8657cba7421b/${newEmail}`,
-        {
-          title: product.title,
-          price: product.price,
-          quantity: product.quantity,
-          imageUrl: product.imageUrl,
+    const res = await fetch(`${url}/${newEmail}.json`);
+    if (res.ok) {
+      const response = await res.json();
+      if (response) {
+        const values = Object.values(response);
+        const keys = Object.keys(response);
+        const itemFound = values.find((item) => item.title === product.title);
+        const index = values.indexOf(itemFound);
+
+        if (index >= 0) {
+          id = keys[index];
+          axios.put(`${url}/${newEmail}/${id}.json`, {
+            title: itemFound.title,
+            price: itemFound.price,
+            quantity: itemFound.quantity + 1,
+            imageUrl: itemFound.imageUrl,
+          });
+        } else {
+          await fetch(`${url}/${newEmail}.json`, {
+            method: "POST",
+            body: JSON.stringify({
+              title: product.title,
+              price: product.price,
+              quantity: product.quantity,
+              imageUrl: product.imageUrl,
+            }),
+            headers: {
+              "Content-type": "application/json",
+            },
+          });
         }
-      );
+      } else {
+        await fetch(`${url}/${newEmail}.json`, {
+          method: "POST",
+          body: JSON.stringify({
+            title: product.title,
+            price: product.price,
+            quantity: product.quantity,
+            imageUrl: product.imageUrl,
+          }),
+          headers: {
+            "Content-type": "application/json",
+          },
+        });
+      }
     }
   };
 
@@ -88,24 +107,44 @@ const Page = () => {
 
   return (
     <>
-      <Card style={{ paddingTop: "2rem", width: "100rem" }}>
+      <Card
+        style={{
+          paddingTop: "25rem",
+          overflow: "hidden",
+        }}
+      >
         <Card.Body>
-          <Card.Title style={{ fontSize: "5rem", alignContent: "center" }}>
+          <Card.Title
+            style={{
+              fontSize: "5rem",
+              left: "25%",
+              position: "relative",
+            }}
+          >
             The Generics
           </Card.Title>
         </Card.Body>
       </Card>
-      <Card style={{ width: "100rem" }}>
+      <Card
+        style={{
+          width: "800px",
+          margin: "0 auto",
+        }}
+      >
         <Card.Body>
           {productsArr.map((product) => {
             return (
-              <Card.Body key={product.title}>
-                <Card.Title>{product.title}</Card.Title>
+              <Card.Body
+                style={{ float: "left", padding: "10px 70px" }}
+                key={product.title}
+              >
+                <Card.Title style={{ paddingTop: "15px" }}>
+                  {product.title}
+                </Card.Title>
                 <Link to={`/store/${product.title}`}>
                   <Card.Img
-                    variant="top"
                     src={product.imageUrl}
-                    style={{ width: "18rem", display: "flex-box" }}
+                    style={{ width: "15rem", paddingTop: "10px" }}
                   />
                 </Link>
                 <Card.Text>${product.price}</Card.Text>
@@ -114,9 +153,14 @@ const Page = () => {
               </Card.Body>
             );
           })}
+          <Button
+            style={{ margin: "0", position: "relative", left: "40%" }}
+            variant="secondary"
+          >
+            See the cart
+          </Button>
         </Card.Body>
       </Card>
-      <Button variant="secondary">See the cart</Button>
     </>
   );
 };
