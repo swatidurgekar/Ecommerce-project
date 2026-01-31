@@ -19,7 +19,7 @@ const Login = () => {
     event.preventDefault();
     if (isLogin) {
       fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAlZyDYZo4QLVRkyBpqcRzuhBHMvTFQFgQ",
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDmsdZYCvUprC2wN2LJbN_lIj9GbhpTLew",
         {
           method: "POST",
           body: JSON.stringify({
@@ -32,6 +32,7 @@ const Login = () => {
           },
         }
       ).then((res) => {
+        console.log('res', res)
         if (res.ok) {
           res.json().then((data) => {
             authCtx.loginHandler(data.email, data.idToken);
@@ -42,6 +43,7 @@ const Login = () => {
         }
       });
     } else {
+      console.log('email', email.current.value)
       fetch(
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDmsdZYCvUprC2wN2LJbN_lIj9GbhpTLew",
         {
