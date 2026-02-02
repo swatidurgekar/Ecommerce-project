@@ -6,6 +6,7 @@ import { Switch } from "react-router-dom";
 import AuthContext from "./Components/Store/AuthContext";
 import { useContext } from "react";
 import CartContextProvider from "./Components/Store/CartContextProvider";
+import "./App.css";
 
 const App = () => {
   const Page = lazy(() => import("./Components/Page/Page"));
@@ -17,7 +18,7 @@ const App = () => {
   const authCtx = useContext(AuthContext);
 
   return (
-    <div>
+    <div className="background">
       <CartContextProvider>
         <NavbarComponent />
         <Switch>
